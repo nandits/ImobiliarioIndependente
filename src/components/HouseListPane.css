@@ -1,0 +1,60 @@
+.house-list-pane {
+    flex: 0 0 300px; /* Fixed width for the list pane */
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    height: calc(100vh - 200px); /* Adjust based on header/footer */
+    overflow-y: auto;
+}
+
+.house-list-pane h3 {
+    margin-top: 0;
+    color: #004085;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.house-list-pane ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.house-list-pane li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.house-list-pane li:hover {
+    background-color: #e9ecef;
+}
+
+.house-list-pane li.selected {
+    background-color: #cce5ff; /* Light blue for selected */
+    font-weight: bold;
+}
+
+.house-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.house-list-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+}
+
+.house-list-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #555;
+}

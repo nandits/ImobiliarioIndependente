@@ -1,0 +1,27 @@
+.agent-detail-page {
+    padding-top: 20px;
+}
+
+.toggle-list-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.toggle-list-btn:hover {
+    background-color: #0056b3;
+}
+
+.content-area {
+    display: flex;
+    gap: 20px;
+}
+
+.house-viewer-container.full-width {
+    flex-grow: 1; /* Takes full width when list is hidden */
+}
