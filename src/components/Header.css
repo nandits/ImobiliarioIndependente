@@ -1,25 +1,21 @@
 .app-header {
     background-color: #004085;
     color: white;
-    padding: 1rem 0;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 0px;
 }
 
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo-link h1 {
-    margin: 0;
-    font-size: 1.8rem;
-    color: white;
+    padding: 0px;
 }
 
 .agent-info {
     display: flex;
     align-items: center;
+    padding: 0px;
 }
 
 .agent-avatar {
@@ -29,6 +25,7 @@
     margin-right: 15px;
     object-fit: cover;
     border: 2px solid #fff;
+    padding: 0px;
 }
 
 .agent-info h2 {
@@ -39,4 +36,61 @@
     margin: 0;
     font-size: 0.9rem;
     color: #e9ecef;
+}
+
+/* In your Header.css or equivalent */
+.logo-title-link {
+  display: flex; /* Aligns logo and title horizontally */
+  align-items: center; /* Vertically aligns items in the middle */
+  text-decoration: none; /* Removes underline from link */
+  color: inherit; /* Inherits text color from parent */
+}
+
+.header-logo-img {
+  height: 80px; /* Adjust as needed */
+  width: auto;   /* Maintain aspect ratio */
+  margin-right: 10px; /* Space between logo and title */
+}
+
+/* You might already have styles for h1 within the header */
+.logo-title-link h1 {
+  margin: 0; /* Removes default h1 margin if needed */
+  font-size: 1.5em; /* Adjust as needed */
+}
+
+
+/* Styles for User Authentication Section */
+.user-auth-section {
+    display: flex;
+    align-items: center;
+}
+
+.logged-in-user {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between email and logout button */
+}
+
+.user-email {
+    font-size: 0.9rem;
+    color: #e9ecef; /* Light color to contrast with dark header */
+}
+
+.logout-button,
+.login-button {
+    background-color: #f8f9fa; /* Light background for buttons */
+    color: #004085; /* Dark blue text to match header theme */
+    border: 1px solid #004085;
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.logout-button:hover,
+.login-button:hover {
+    background-color: #e2e6ea;
+    border-color: #00376e;
 }

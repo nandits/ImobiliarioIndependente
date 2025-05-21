@@ -1,10 +1,11 @@
 .house-list-pane {
-    flex: 0 0 300px; /* Fixed width for the list pane */
+    width: fit-content;
+    flex-shrink: 1;
     background-color: #ffffff;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    height: calc(100vh - 200px); /* Adjust based on header/footer */
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
 }
 

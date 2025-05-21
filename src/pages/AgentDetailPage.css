@@ -25,3 +25,25 @@
 .house-viewer-container.full-width {
     flex-grow: 1; /* Takes full width when list is hidden */
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) { /* Adjust breakpoint as needed */
+    .content-area {
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    /* Adjust HouseListPane to take full width on smaller screens */
+    /* Assuming HouseListPane component renders a div with class "house-list-pane" */
+    .house-list-pane {
+        flex-basis: auto; /* Reset flex-basis from fixed width */
+        width: 100%;     /* Take full available width */
+        margin-bottom: 20px; /* Add some space below it before the HouseViewer */
+        /* Consider adjusting height for mobile if it's too tall */
+        max-height: 50vh; 
+        overflow-y: auto;
+    }
+
+    .house-viewer-container {
+        width: 100%; /* Ensure viewer also takes full width when stacked */
+    }
+}
