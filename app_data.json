@@ -2,8 +2,8 @@
     "agents": {
         "user1": {
             "id": "user1",
-            "name": "Alice Smith",
-            "profilePicture": "data_source/Profile/user1/UserProfile/profile.png",
+            "name": "Armando Miguel",
+            "profilePicture": "data_source/Profile/user1/UserProfile/profile.jpg",
             "profileInfo": {
                 "email": "alice@example.com",
                 "phone": "555-0101",
@@ -31,8 +31,8 @@
         },
         "user2": {
             "id": "user2",
-            "name": "Samuel Sedrez",
-            "profilePicture": "data_source/Profile/user2/UserProfile/profile.jpg",
+            "name": "Samuela Sedrez",
+            "profilePicture": "data_source/Profile/user2/UserProfile/profile.webp",
             "profileInfo": {
                 "email": "Samuel@example.com",
                 "phone": "555-0101",
