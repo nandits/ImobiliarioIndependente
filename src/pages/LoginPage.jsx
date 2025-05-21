@@ -5,7 +5,7 @@ import './LoginPage.css'; // Create this CSS file for styling
 
 
 function LoginPage() { 
-  const { loginWithGoogle, currentUser, userProfile } = useAuth();
+  const { loginWithGoogle, currentUser, userProfile, loading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [error, setError] = useState('');
@@ -13,8 +13,14 @@ function LoginPage() {
   const from = location.state?.from?.pathname || '/'; // Default redirect for owner
 
   useEffect(() => {
+    
+    // Only attempt redirection if AuthContext is no longer loading
+    if (loading) {
+      return; // Wait for auth and profile to be processed
+    }
+    
     // Redirect based on userProfile after login
-    if (currentUser && userProfile) { 
+    if (currentUser && userProfile) {
       if (userProfile.role === 'owner') {
         navigate(from === '/login' ? '/' : from, { replace: true });
       } else if (userProfile.role === 'agent' && userProfile.agentAppId) {
@@ -25,12 +31,12 @@ function LoginPage() {
         // Potentially redirect to an "unauthorized" or "pending approval" page, or logout
         navigate('/unauthorized', { replace: true }); 
       }
-    } else if (currentUser && !userProfile) { 
+    } else if (currentUser && !userProfile) {
       // User is authenticated with Firebase, but no profile in our DB (not registered in our system)
       console.log("User authenticated but not registered in the system. Redirecting to unauthorized.");
       navigate('/NewUserForm', { replace: true }); // Or a "please register" page
     }
-  }, [currentUser, userProfile, navigate, from, location.state]);
+  }, [currentUser, userProfile, loading, navigate, from, location.state]);
 
   const handleLogin = async () => {
     setError('');

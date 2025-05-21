@@ -11,7 +11,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-    const [userProfile, setUserProfile] = useState(null); // To store Firestore profile data
+  const [userProfile, setUserProfile] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -26,23 +26,34 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      console.log("[AuthContext] onAuthStateChanged triggered. User object:", user ? { uid: user.uid, email: user.email } : "User is null");
       setCurrentUser(user);
-      setLoading(false);
       if (user) {
+        setLoading(true);
         // User is signed in, fetch their profile from Firestore
+        console.log(`[AuthContext] User is signed in. Attempting to fetch profile for UID: ${user.uid}`);
         const userDocRef = doc(db, "users", user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-          setUserProfile({ uid: user.uid, ...userDocSnap.data() });
-        } else {
-          // User authenticated with Firebase, but no profile in our 'users' collection
-          console.warn("User signed in but no profile found in Firestore:", user.uid, user.email);
+        try {
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const profileData = { uid: user.uid, ...userDocSnap.data() };
+            console.log("[AuthContext] Profile FOUND in Firestore:", profileData);
+            setUserProfile(profileData);
+          } else {
+            // User authenticated with Firebase, but no profile in our 'users' collection
+            console.warn(`[AuthContext] Profile NOT found in Firestore for UID: ${user.uid}. User email: ${user.email}`);
+            setUserProfile(null); // Or set a guest profile, or trigger a registration flow
+          }
+        } catch (error) {
+          console.error("[AuthContext] Error fetching user profile from Firestore:", error);
           setUserProfile(null); // Or set a guest profile, or trigger a registration flow
         }
       } else {
         // User is signed out
+        console.log("[AuthContext] User is signed out.");
         setUserProfile(null);
       }
+      console.log("[AuthContext] Setting loading to false.");
       setLoading(false); // Set loading to false after auth state and profile are processed
     });
     return unsubscribe; // Cleanup subscription on unmount
