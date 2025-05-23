@@ -23,8 +23,8 @@ function LoginPage() {
     if (currentUser && userProfile) {
       if (userProfile.role === 'owner') {
         navigate(from === '/login' ? '/' : from, { replace: true });
-      } else if (userProfile.role === 'agent' && userProfile.agentAppId) {
-        navigate(`/agent/${userProfile.agentAppId}`, { replace: true });
+      } else if (userProfile.role === 'agent' && userProfile.userAppID) {
+        navigate(`/agent/${userProfile.userAppID}`, { replace: true });
       } else {
         // Logged in but not owner or recognized agent with agentAppId
         console.warn("Logged in user has no recognized role or agentAppId:", userProfile);

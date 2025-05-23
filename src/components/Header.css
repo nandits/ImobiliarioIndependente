@@ -5,17 +5,26 @@
     padding: 0px;
 }
 
+.container {
+  width: 100%;
+  max-width: none;
+  margin: 0 0; /* This centers it */
+  padding: 0px;
+}
+
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px;
+    padding: 10px 20px; 
+    box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .agent-info {
     display: flex;
     align-items: center;
     padding: 0px;
+    margin-left: auto; /* This pushes the agent-info to the far right */
 }
 
 .agent-avatar {
@@ -29,9 +38,10 @@
 }
 
 .agent-info h2 {
-    margin: 0 0 5px 0;
+    margin: 0 0 0px 0;
     font-size: 1.2rem;
 }
+
 .agent-info p {
     margin: 0;
     font-size: 0.9rem;
@@ -59,38 +69,46 @@
 }
 
 
-/* Styles for User Authentication Section */
 .user-auth-section {
+    position: absolute; /* To position it independently */
+    top: 0px;          /* Adjust for snugness */
+    left: 5px;         /* Adjust for snugness */
+    z-index: 10;
     display: flex;
     align-items: center;
 }
 
-.logged-in-user {
+.logged-in-user-details {
     display: flex;
     align-items: center;
-    gap: 15px; /* Space between email and logout button */
+    gap: 10px; /* Space between name and logout button */
 }
 
-.user-email {
-    font-size: 0.9rem;
-    color: #e9ecef; /* Light color to contrast with dark header */
-}
-
-.logout-button,
-.login-button {
-    background-color: #f8f9fa; /* Light background for buttons */
-    color: #004085; /* Dark blue text to match header theme */
-    border: 1px solid #004085;
-    padding: 8px 15px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 0.9rem;
+.header-logout-link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 5;
+    color: white;
+    text-decoration: underline;
+    font-size: 0.75rem; /* Match login link size */
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-family: inherit; /* Ensure it uses the same font as surrounding text */
 }
 
-.logout-button:hover,
-.login-button:hover {
-    background-color: #e2e6ea;
-    border-color: #00376e;
+/* Optional: Common hover effect for both */
+.header-logout-link-button:hover,
+.header-login-link:hover {
+    text-decoration: none; /* Remove underline on hover, or add other effect */
+    /* color: #yourHoverColor; */ /* Example: change color on hover */
+}
+
+/* Style for the Login LINK (subtle text) */
+.header-login-link {
+    color: white;
+    text-decoration: underline;
+    font-size: 0.75rem; /* Small font size */
+    cursor: pointer;
+    background: none; /* No background */
+    border: 0;     /* No border */
 }

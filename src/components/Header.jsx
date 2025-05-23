@@ -12,7 +12,6 @@ function Header({ agent }) {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate('/login'); // Redirect to login after logout
     } catch (error) {
       console.error("Failed to log out", error);
     }
@@ -20,7 +19,7 @@ function Header({ agent }) {
 
   return (
     <header className="app-header">
-      <div className="container header-content">
+      <div className="header-content">
         <Link to="/" className="logo-title-link">
           <img src={`${import.meta.env.BASE_URL}ACImob1_NBG.png`} alt="AC Soluções Logo" className="header-logo-img"/>
           <h1>Catálogo de Imobiliário</h1>
@@ -46,19 +45,15 @@ function Header({ agent }) {
             </div>
           </div>
         )}
-
-        {/* Login/Logout and Logged-in User Info */}
-        <div className="user-auth-section">
+      <div className="user-auth-section">
           {currentUser && userProfile ? ( // Check for userProfile too
-            <div className="logged-in-user">
-              <span className="user-email">{userProfile.displayName || currentUser.email}</span>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
-            </div>
-          ) : (
-            <Link to="/login" className="login-button">Login</Link>
+            <div className="logged-in-user-details">
+              <button onClick={handleLogout} className="header-logout-link-button">{userProfile.displayName || currentUser.email}{" >> "}Logout</button>
+            </div>          
+            ) : (
+            <Link to="/login" className="header-login-link">Login</Link>
           )}
-        </div>
-
+      </div>
       </div>
     </header>
   );
