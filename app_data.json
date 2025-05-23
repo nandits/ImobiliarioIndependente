@@ -2,13 +2,6 @@
     "agents": {
         "user1": {
             "id": "user1",
-            "name": "Armando Miguel",
-            "profilePicture": "data_source/Profile/user1/UserProfile/profile.jpg",
-            "profileInfo": {
-                "email": "alice@example.com",
-                "phone": "555-0101",
-                "bio": "Experienced agent specializing in unique properties."
-            },
             "houses": {
                 "House1": {
                     "id": "House1",
@@ -31,13 +24,6 @@
         },
         "user2": {
             "id": "user2",
-            "name": "Samuelaaaaa Sedrez",
-            "profilePicture": "data_source/Profile/user2/UserProfile/profile.webp",
-            "profileInfo": {
-                "email": "Samuel@example.com",
-                "phone": "555-0101",
-                "bio": "Experienced agent specializing in unique properties."
-            },
             "houses": {
                 "House1": {
                     "id": "House1",
