@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'; // Adjust path as necessary
 import './LoginPage.css'; // Create this CSS file for styling
@@ -10,8 +10,13 @@ function LoginPage() {
   const location = useLocation();
   const [error, setError] = useState('');
 
-  const from = location.state?.from?.pathname || '/'; // Default redirect for owner
-
+  // Memoize 'from' to stabilize it as a dependency.
+  // It will only recompute if location.state.from.pathname actually changes.
+  const from = useMemo(() => {
+    // console.log("LoginPage: Recalculating 'from'. location.state:", location.state);
+    return location.state?.from?.pathname || '/';
+  }, [location.state?.from?.pathname]);
+  
   useEffect(() => {
     
     // Only attempt redirection if AuthContext is no longer loading
@@ -27,16 +32,17 @@ function LoginPage() {
         navigate(`/agent/${userProfile.userAppID}`, { replace: true });
       } else {
         // Logged in but not owner or recognized agent with agentAppId
-        console.warn("Logged in user has no recognized role or agentAppId:", userProfile);
-        // Potentially redirect to an "unauthorized" or "pending approval" page, or logout
+        console.warn("LoginPage: User has profile but unrecognized role/userAppID. Navigating to /unauthorized. Profile:", userProfile);
         navigate('/unauthorized', { replace: true }); 
       }
-    } else if (currentUser && !userProfile) {
+    } else if (currentUser && userProfile === null) { // Check for explicitly null, meaning fetch completed but no profile
       // User is authenticated with Firebase, but no profile in our DB (not registered in our system)
       console.log("User authenticated but not registered in the system. Redirecting to unauthorized.");
-      navigate('//my-profile', { replace: true }); // Or a "please register" page
-    }
-  }, [currentUser, userProfile, loading, navigate, from, location.state]);
+      // Only navigate if not already on /my-profile to prevent loops if /my-profile itself has issues.
+      if (location.pathname !== '/my-profile') {
+        navigate('/my-profile', { replace: true });
+      }    }
+  }, [currentUser, userProfile, loading, navigate, from, location.pathname]);
 
   const handleLogin = async () => {
     setError('');

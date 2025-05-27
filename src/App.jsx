@@ -10,7 +10,6 @@ import LoginPage from './pages/LoginPage';
 import AgentProfilePage from './pages/AgentProfilePage'; // Import AgentProfilePage
 import AddHouseListingPage from './pages/AddHouseListingPage'; // Import the new page
 import ManageListingsPage from './pages/ManageListingsPage'; // Import the new page
-import NewUserForm from './pages/NewUserForm'; // Import NewUserForm
 import UnauthorizedPage from './pages/UnauthorizedPage'; // Import UnauthorizedPage
 import './App.css';
 

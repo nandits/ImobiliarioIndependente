@@ -11,8 +11,8 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userProfile, setUserProfile] = useState(null);
-
+  const [userProfile, setUserProfile] = useState(undefined); // Initialize as undefined
+  const [profileError, setProfileError] = useState(null); // State for profile fetching errors
   const [authLoading, setAuthLoading] = useState(true);
 
   async function loginWithGoogle() {
@@ -22,18 +22,20 @@ export function AuthProvider({ children }) {
 
   async function logout() {
     console.log("[AuthContext] Logging out user.");
-    setUserProfile(null); 
+    setUserProfile(null);
     return firebaseSignOut(auth);
   }
 
- const fetchUserProfileData = async (uid) => {
-    if (!uid) {
+  const fetchUserProfileData = async (authUser)=> {
+    setProfileError(null); // Reset profile error before fetching
+
+    if (!authUser || !authUser.uid) {
       console.log("[AuthContext] fetchUserProfileData called with no UID, setting profile to null.");
       setUserProfile(null);
       return;
     }
-    console.log(`[AuthContext] Attempting to fetch profile for UID: ${uid}`);
-    const userDocRef = doc(db, "users", uid);
+    console.log(`[AuthContext] Attempting to fetch profile for UID: ${authUser.uid}`);
+    const userDocRef = doc(db, "users", authUser.uid);
     try {
       const userDocSnap = await getDoc(userDocRef);
       if (userDocSnap.exists()) {
@@ -46,6 +48,7 @@ export function AuthProvider({ children }) {
       }
     } catch (error) {
       console.error("[AuthContext] Error fetching user profile from Firestore:", error);
+      setProfileError(error); 
       setUserProfile(null);
     }
   };
@@ -55,9 +58,10 @@ export function AuthProvider({ children }) {
     setAuthLoading(true); // Ensure loading is true at the start of the effect
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       console.log("[AuthContext] onAuthStateChanged triggered. User object:", user ? { uid: user.uid, email: user.email } : "User is null");
+      setProfileError(null); // Reset profile error on auth state change      
       setCurrentUser(user);
       if (user) {
-        await fetchUserProfileData(user.uid);
+        await fetchUserProfileData(user);
       } else {
         // User is signed out
         console.log("[AuthContext] User is signed out.");
@@ -69,14 +73,12 @@ export function AuthProvider({ children }) {
       console.log("[AuthContext] Unsubscribing from onAuthStateChanged.");
       unsubscribe(); // Cleanup subscription on unmount
     };
-    }, []);
+  }, []);
 
   const refreshUserProfile = async () => {
     if (currentUser) {
       console.log(`[AuthContext] refreshUserProfile called for UID: ${currentUser.uid}`);
-      setAuthLoading(true); // Optionally indicate loading during refresh
       await fetchUserProfileData(currentUser.uid);
-      setAuthLoading(false); // Finish loading
     } else {
       console.log("[AuthContext] refreshUserProfile called, but no current user.");
     }
@@ -85,11 +87,12 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     userProfile, // Provide userProfile through context
+    profileError,
     loginWithGoogle,
     logout,
     authLoading,
     refreshUserProfile
-    };
+  };
 
   return <AuthContext.Provider value={value}>{!authLoading && children}</AuthContext.Provider>;
 }
