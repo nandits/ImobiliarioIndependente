@@ -1,0 +1,41 @@
+.image-previews {
+  margin-top: 15px;
+  border: 1px solid #eee;
+  padding: 10px;
+}
+.image-preview-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #ccc;
+}
+.image-preview-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.image-preview-item img {
+  border: 1px solid #ddd;
+  margin-right: 15px;
+}
+.image-metadata-inputs {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.image-metadata-inputs label {
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+.image-metadata-inputs input[type="number"],
+.image-metadata-inputs textarea {
+  width: 100%;
+  padding: 5px;
+  margin-top: 2px;
+  box-sizing: border-box;
+}
+.image-preview-item button {
+  margin-left: 10px;
+  align-self: center; /* Or align-self: flex-start; */
+}

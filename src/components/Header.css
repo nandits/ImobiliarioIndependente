@@ -112,3 +112,14 @@
     background: none; /* No background */
     border: 0;     /* No border */
 }
+
+.header-profile-link {
+    color: white;
+    text-decoration: none; /* Or underline, as you prefer */
+    font-size: 0.9rem;
+    margin-right: 10px; /* Space before logout button */
+}
+
+.header-profile-link:hover {
+    text-decoration: underline;
+}

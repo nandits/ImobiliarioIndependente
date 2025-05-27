@@ -34,7 +34,7 @@ function LoginPage() {
     } else if (currentUser && !userProfile) {
       // User is authenticated with Firebase, but no profile in our DB (not registered in our system)
       console.log("User authenticated but not registered in the system. Redirecting to unauthorized.");
-      navigate('/NewUserForm', { replace: true }); // Or a "please register" page
+      navigate('//my-profile', { replace: true }); // Or a "please register" page
     }
   }, [currentUser, userProfile, loading, navigate, from, location.state]);
 
@@ -55,7 +55,7 @@ function LoginPage() {
         <h2>Login</h2>
         {error && <p className="error-message">{error}</p>}
         <button onClick={handleLogin} className="google-login-button">
-          <img src={`${import.meta.env.BASE_URL}google-logo.svg`} alt="Google sign-in" />
+          <img src={"https://res.cloudinary.com/dynnpabnw/image/upload/v1748059246/google-logo_v32mr7.svg"} alt="Google sign-in" />
           Sign in with Google
         </button>
         <p className="login-note">Only registered agents and site owner can log in.</p>

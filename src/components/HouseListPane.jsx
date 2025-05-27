@@ -16,7 +16,7 @@ function HouseListPane({ houses, onHouseSelect, selectedHouseId }) {
             onClick={() => onHouseSelect(house)}
             className={house.id === selectedHouseId ? 'selected' : ''}
           >
-            <img src={house.photos[0] || '/placeholder-house.png'} alt={house.name} className="house-thumbnail" onError={(e) => e.target.src = '/placeholder-house.png'} />
+            <img src={house.images[0].picUrl} alt={house.name} className="house-thumbnail" onError={(e) => e.target.src = '/placeholder-house.png'} />
             <div className="house-list-info">
               <h4>{house.name}</h4>
               <p>{house.price}</p>

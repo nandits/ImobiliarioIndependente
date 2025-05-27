@@ -9,26 +9,31 @@ function HouseViewer({ house }) {
   }
 
   const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % house.photos.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % house.images.length);
   };
 
   const prevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + house.photos.length) % house.photos.length);
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + house.images.length) % house.images.length);
   };
+
 
   return (
     <section className="house-viewer">
-      <h2>{house.name}</h2>
-      <p className="house-address">{house.address} - <span className="house-price">{house.price}</span></p>
-      <div className="image-gallery">
-        {house.photos && house.photos.length > 0 ? (
-          <>
-            <img src={house.photos[currentImageIndex]} alt={`${house.name} - view ${currentImageIndex + 1}`} className="main-house-image" onError={(e) => e.target.src = '/placeholder-house-large.png'} />
-            {house.photos.length > 1 && <div className="gallery-nav"><button onClick={prevImage}>&lt; Prev</button><button onClick={nextImage}>Next &gt;</button></div>}
-          </>
-        ) : <img src="/placeholder-house-large.png" alt="Placeholder" className="main-house-image"/> }
-      </div>
+      <h2>{house.title}</h2>
       <p className="house-description">{house.description}</p>
+      <p className="house-address">{house.address}</p>
+      <span className="house-price">{house.price}</span>
+      <div className="image-gallery">
+        {house.images && house.images.length > 0 ? (
+          <>
+            <img src={house.images[currentImageIndex].picUrl} alt={`${house.title} - view ${currentImageIndex + 1}`} className="main-house-image" onError={(e) => e.target.src = '/placeholder-house-large.png'} />
+            <p>{house.images[currentImageIndex].picDescription}</p>
+            {house.images.length > 1 && <div className="gallery-nav"><button onClick={prevImage}>&lt; Prev</button><button onClick={nextImage}>Next &gt;</button></div>}
+          </>
+        ) : 
+          <img src="/placeholder-house-large.png" alt="Placeholder" className="main-house-image"/>
+        }
+      </div>
     </section>
   );
 }

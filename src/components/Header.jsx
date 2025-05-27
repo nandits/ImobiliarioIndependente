@@ -3,9 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Header.css';
 
-// eslint-disable-next-line react/prop-types
-function Header({ agent }) {
 
+function Header({ agent }) {
   const { currentUser, logout, userProfile } = useAuth();
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ function Header({ agent }) {
     <header className="app-header">
       <div className="header-content">
         <Link to="/" className="logo-title-link">
-          <img src={`${import.meta.env.BASE_URL}ACImob1_NBG.png`} alt="AC Soluções Logo" className="header-logo-img"/>
+          <img src={`https://res.cloudinary.com/dynnpabnw/image/upload/v1748059246/ACImob1_NBG_bb8m36.png`} alt="AC Soluções Logo" className="header-logo-img"/>
           <h1>Catálogo de Imobiliário</h1>
         </Link>
         {/* Display current viewing agent's info (if on their page) */}
@@ -29,17 +28,19 @@ function Header({ agent }) {
           <div className="agent-info">
             {agent.profilePicture && (
               <img 
-                src={`${import.meta.env.BASE_URL}${agent.profilePicture}`}
-                alt={agent.name} 
+                src={agent.profilePicture}
+                alt={agent.displayName} 
                 className="agent-avatar" 
-                onError={(e) => { e.target.style.display = 'none'; /* Optionally hide if image fails to load */ }} 
+                onError={(e) => { e.target.style.display = 'none';}} 
               />
             )}
             <div>
-              <h2>{agent.name}</h2>
-              {agent.profileInfo && (
+              <h2>{agent.displayName}</h2>
+              {(agent.phone || agent.email) && (
                 <p>
-                  {agent.profileInfo.email}{agent.profileInfo.phone && agent.profileInfo.email ? ' | ' : ''}{agent.profileInfo.phone}
+                  {agent.phone && <span>{agent.phone}</span>}
+                  {agent.phone && agent.email && <span> | </span>}
+                  {agent.email && <span>{agent.email}</span>}              
                 </p>
               )}
             </div>
@@ -48,6 +49,9 @@ function Header({ agent }) {
       <div className="user-auth-section">
           {currentUser && userProfile ? ( // Check for userProfile too
             <div className="logged-in-user-details">
+              <Link to="/my-profile" className="header-logout-link-button">Meu Perfil</Link>
+              <Link to={`/agent/${currentUser.uid}`} className="header-logout-link-button" >Minha Pagina</Link>
+              <Link to="/my-profile/my-listings" className="header-logout-link-button" >Gerir Minhas Listagens</Link>
               <button onClick={handleLogout} className="header-logout-link-button">{userProfile.displayName || currentUser.email}{" >> "}Logout</button>
             </div>          
             ) : (
