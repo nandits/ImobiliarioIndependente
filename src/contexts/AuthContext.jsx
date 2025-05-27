@@ -78,7 +78,7 @@ export function AuthProvider({ children }) {
   const refreshUserProfile = async () => {
     if (currentUser) {
       console.log(`[AuthContext] refreshUserProfile called for UID: ${currentUser.uid}`);
-      await fetchUserProfileData(currentUser.uid);
+      await fetchUserProfileData(currentUser);
     } else {
       console.log("[AuthContext] refreshUserProfile called, but no current user.");
     }
